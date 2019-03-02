@@ -3,11 +3,69 @@
 	Pok&eacute;mon Builds
 </title>
 <head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+		function search() {
+			var val = document.getElementById("search").value.toLowerCase();
+			var URL = "https://pokeapi.co/api/v2/pokemon/"+val;
+			var textdata = "";
+			$.ajax({
+				type : "GET",
+				url : URL,
+				datatype : "jsonp",
+				success : function(msg) {
+					textdata += "Name: "+msg.name.charAt(0).toUpperCase()+msg.name.slice(1)+"\n";
+					textdata += "Type(s):";
+					$(msg.types).each(function() {
+						textdata += " "+this.type.name.charAt(0).toUpperCase()+this.type.name.slice(1)+",";
+					});
+					textdata = textdata.substring(0,textdata.length-1)+"\n";
+					textdata += "Ability(s):";
+					$(msg.abilities).each(function() {
+						var ability = this.ability.name;
+						ability = ability.split("-");
+						ability.forEach(function(item, index) {
+							textdata += " "+item.charAt(0).toUpperCase()+item.slice(1);
+						});
+						textdata += ",";
+					});
+					textdata = textdata.substring(0,textdata.lastIndexOf(","))+"\n";
+					textdata += "\nMoves:";
+					var moveList = "";
+					$(msg.moves).each(function() {
+						var move = this.move.name;
+						move = move.split("-");
+						move.forEach(function(item, index) {
+							moveList += " "+item.charAt(0).toUpperCase()+item.slice(1);
+						});
+						moveList += ",";
+						if(moveList.length >= 100) {
+							moveList += "\n";
+							textdata += moveList;
+							moveList = "";
+						}
+					});
+					textdata = textdata.substring(0,textdata.lastIndexOf(","))+"\n";
+					document.getElementById("out").innerHTML = textdata;
+				},
+				error: function(jgXHR, textstatus,errorThrown) {	// Alert if error occurs
+					alert("Error: "+textstatus+" "+errorThrown);
+				},
+			});
+		}
+	</script>
+	<style>
+		div {
+			white-space: pre;
+		}
+	</style>
 </head>
 <body bgcolor="ff0000">
 	<br><br>
-	<div align="center" bgcolor="000000">
-		<textarea cols="100" rows="1"></textarea>
+	<div align="center" bgcolor="#000000">
+		<textarea cols="100" rows="1" id="search"></textarea>
+		<button onclick="search()">Search!</button>
 	</div>
+	<div id="out" align="center"></div>
 </body>
 </html>
