@@ -7,7 +7,7 @@
 	<script>
 		function search() {
 			var val = document.getElementById("search");
-			var URL = //"./endpoint?poke="+val;
+			var URL = "./view_builds?poke="+val;
 			var tabledata = "<table><tr>";
 			$.ajax({
 				type: "GET",
@@ -20,8 +20,11 @@
 						count++;
 						tabledata += "<td><h4>Name: "+this.name+"</h4>";
 						tabledata += "<p>Ability: "+this.ability+"</p>";
-						tabledata += "<p>IV: "+this.iv+"</p>";
-						tabledata += "<p>Moves: "+this.move1+", "+this.move2+", "+this.move3+", "+this.move4+"</p></td>";
+						tabledata += "<p>Nature: "+this.nature+"</p>";
+						tabledata += "<p>IVs: "+this.ivs+"</p>";
+						tabledata += "<p>EVs: "+this.evs+"</p>";
+						tabledata += "<p>Moves: "+this.move1+", "+this.move2+", "+this.move3+", "+this.move4+"</p>";
+						tabledata += "<p>Description: "+this.description+"</p></td>";
 						if(count >= 3) {
 							tabledata += "</tr><tr>";
 							count = 0;
@@ -35,13 +38,23 @@
 				}
 			});
 		}
+	</script>
+	<style>
+		div {
+			white-space: pre;
+		}
+	</style>
 </head>
-<body bgcolor="#ff0000">
+<body bgcolor="ff0000">
 	<br><br>
 	<div align="center" bgcolor="#000000">
 		<textarea cols="100" rows="1" id="search"></textarea>
 		<button onclick="search()">Search!</button>
 	</div>
 	<div id="out" align="center"></div>
+	<div align="center">
+		<a href="./summary.html">Information</a>
+		<a href="./createBuilds.html">Create Builds</a>
+	</div>
 </body>
 </html>
