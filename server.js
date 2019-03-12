@@ -28,6 +28,11 @@ app.get('/search', function(req,res,next)
 var poke = reg.query.poke;
 });
 
+app.get('/view_build', function(req,res,next) 
+{
+var build = reg.query.build;
+});
+
 
 
 
