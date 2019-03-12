@@ -1,0 +1,47 @@
+<html>
+<title>
+	Pok&eacute;mon Builds
+</title>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+		function search() {
+			var val = document.getElementById("search");
+			var URL = //"./endpoint?poke="+val;
+			var tabledata = "<table><tr>";
+			$.ajax({
+				type: "GET",
+				url: URL,
+				datatype: "text",
+				success: function(msg) {
+					var json = JSON.parse(msg);
+					var count = 0;
+					$(json).each(function() {
+						count++;
+						tabledata += "<td><h4>Name: "+this.name+"</h4>";
+						tabledata += "<p>Ability: "+this.ability+"</p>";
+						tabledata += "<p>IV: "+this.iv+"</p>";
+						tabledata += "<p>Moves: "+this.move1+", "+this.move2+", "+this.move3+", "+this.move4+"</p></td>";
+						if(count >= 3) {
+							tabledata += "</tr><tr>";
+							count = 0;
+						}
+					});
+					tabledata += "</tr></table>";
+					document.getElementById("out").innerHTML = tabledata;
+				}
+				error: function(jgXHR, textstatus,errorThrown) {	// Alert if error occurs
+					alert("Error: "+textstatus+" "+errorThrown);
+				}
+			});
+		}
+</head>
+<body bgcolor="#ff0000">
+	<br><br>
+	<div align="center" bgcolor="#000000">
+		<textarea cols="100" rows="1" id="search"></textarea>
+		<button onclick="search()">Search!</button>
+	</div>
+	<div id="out" align="center"></div>
+</body>
+</html>
