@@ -1,9 +1,35 @@
 <html>
 <title>
-	Pok&eacute;mon Builds
+	Pokemon Builds
 </title>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<style> <!-- css
+		table {
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+		
+		th, td {
+		  padding: 8px;
+		}
+		
+		tr:nth-child(odd){background-color: #f2f2f2}
+		
+		th {
+		  background-color: rgba(175, 172, 9, 0.788);
+		  color: white;
+		}
+		</style>
+		<style type="text/css">
+			body{
+			 background-color: crimson;
+			 background-image: url('images/pokemon_cover.png');
+			 background-size: 40% 40%;
+			 background-repeat:no-repeat;
+			 background-position: bottom
+			}
+			</style>
 	<script>
 		function search() {
 			var val = document.getElementById("search").value.toLowerCase();
@@ -14,43 +40,59 @@
 				url : URL,
 				datatype : "jsonp",
 				success : function(msg) {
-					textdata += "Name: "+msg.name.charAt(0).toUpperCase()+msg.name.slice(1)+"\n";
-					textdata += "Type(s):";
+					//textdata += "<tr><td align='center'>"+msg.name.charAt(0).toUpperCase()+msg.name.slice(1)+"</td>";
+
+					textdata += "<h2> Name: "+msg.name.charAt(0).toUpperCase()+msg.name.slice(1)+"</h2>";
+					textdata += "<h3> Type:";
 					$(msg.types).each(function() {
-						textdata += " "+this.type.name.charAt(0).toUpperCase()+this.type.name.slice(1)+",";
+						textdata += " "+ this.type.name.charAt(0).toUpperCase()+this.type.name.slice(1)+",";
 					});
+					//textdata += "</td>";
 					textdata = textdata.substring(0,textdata.length-1)+"\n";
-					textdata += "Ability(s):";
+					textdata += "Ability(s): ";
 					$(msg.abilities).each(function() {
 						var ability = this.ability.name;
 						ability = ability.split("-");
 						ability.forEach(function(item, index) {
-							textdata += " "+item.charAt(0).toUpperCase()+item.slice(1);
+							textdata += " " + item.charAt(0).toUpperCase()+item.slice(1);
 						});
-						textdata += ",";
+						textdata += ", ";
 					});
+					//textdata += "</td>";
 					textdata = textdata.substring(0,textdata.lastIndexOf(","))+"\n";
-					textdata += "\nMoves:";
+					textdata += "<table data-role='table' class='ui-responsive'><thead><tr><th>"+
+								"Top Moves: "+"</th></thead><tbody>";
 					var moveList = "";
+					textdata += "<tr><td>";
+					var count = 0;
 					$(msg.moves).each(function() {
 						var move = this.move.name;
 						move = move.split("-");
 						move.forEach(function(item, index) {
-							moveList += " "+item.charAt(0).toUpperCase()+item.slice(1);
+							moveList += item.charAt(0).toUpperCase()+item.slice(1);
 						});
-						moveList += ",";
+						moveList += ", ";
 						if(moveList.length >= 100) {
 							moveList += "\n";
 							textdata += moveList;
 							moveList = "";
 						}
+						//textdata += moveList;
+						count++;
+						if(count == 10){
+							return false;
+						}
 					});
 					textdata += moveList;
+					textdata += "</td></tr>";
+					textdata += "</tbody></table>";
 					textdata = textdata.substring(0,textdata.lastIndexOf(","))+"\n";
 					document.getElementById("out").innerHTML = textdata;
 				},
 				error: function(jgXHR, textstatus,errorThrown) {	// Alert if error occurs
-					alert("Error: "+textstatus+" "+errorThrown);
+					//alert("Error: Please enter a valid pokemon name");
+					document.getElementById("out").innerHTML = "Error: Please enter a valid pokemon name";
+
 				},
 			});
 		}
@@ -61,14 +103,15 @@
 		}
 	</style>
 </head>
-<body bgcolor="ff0000">
-	<br><br>
+<body align="center" bgcolor="ffffff">
+	<h1> Pokemon Builds </h1>
+	<br>
 	<div align="center" bgcolor="#000000">
-		<textarea cols="100" rows="1" id="search"></textarea>
-		<button onclick="search()">Search!</button>
+		<input id="search"></input> <br>
+		<button onclick="search()">Search for your favourite pokemon!</button>
 	</div>
 	<div id="out" align="center"></div>
-	<div align="center">
+	<div>
 		<a href="./viewBuilds.html">View Builds</a>
 		<a href="./createBuilds.html">Create Builds</a>
 	</div>

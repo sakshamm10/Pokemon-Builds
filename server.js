@@ -9,6 +9,10 @@ var con = mysql.createConnection({
   dateStrings: true	        //prevents date from being interpreted as a javascript object
 });
 
+app.listen(8080, function(){
+	console.log("server running...");	
+});
+
 //prevents error from data transfer
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -18,27 +22,15 @@ app.use(function(req, res, next) {
 
 //loads the webpage when url is typed in with the /hw5 endpoint
 
-app.get('/page', function(req,res,next) 
-{
+app.get('/page', function(req,res,next) {
 res.sendFile(__dirname + "/summary.html");
 });
 
-app.get('/search', function(req,res,next) 
-{
+app.get('/search', function(req,res,next) {
 var poke = reg.query.poke;
 });
 
-app.get('/view_build', function(req,res,next) 
-{
+app.get('/view_build', function(req,res,next) {
 var build = reg.query.build;
 });
 
-
-
-
-
-
-
-app.listen(8080, function(){
-	console.log("server running...");	
-});
