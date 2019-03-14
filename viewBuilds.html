@@ -8,7 +8,7 @@
 		body{
 		 background-color: crimson;
 		 background-image: url('images/pokemon_cover.png');
-		 background-size: 40% 40%;
+		 background-size: 40%;
 		 background-repeat:no-repeat;
 		 background-position: bottom
 		}
@@ -27,7 +27,8 @@
 					var count = 0;
 					$(json).each(function() {
 						count++;
-						tabledata += "<td><h4>Name: "+this.name+"</h4>";
+						tabledata += "<td><h4>Name: "+this.title+"</h4>";
+						tabledata += "<p>Gender: "+this.gender+"</p>";
 						tabledata += "<p>Ability: "+this.ability+"</p>";
 						tabledata += "<p>Nature: "+this.nature+"</p>";
 						tabledata += "<p>IVs: "+this.ivs+"</p>";
@@ -57,7 +58,7 @@
 <body bgcolor="ff0000">
 	<br><br>
 	<div align="center" bgcolor="#000000">
-		<textarea cols="100" rows="1" id="search"></textarea>
+		<input id="search"></input>
 		<button onclick="search()">Search!</button>
 	</div>
 	<div id="out" align="center"></div>

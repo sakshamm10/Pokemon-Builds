@@ -1,0 +1,75 @@
+<html>
+<title>
+	Pokemon Builds
+</title>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<style type="text/css">
+		body{
+		 background-color: crimson;
+		 background-image: url('images/pokemon_cover.png');
+		 background-size: 40%;
+		 background-repeat:no-repeat;
+		 background-position: bottom
+		}
+		</style>
+	<script>
+		function submit() {
+			var Title = document.getElementById("name").value;
+			var Pokemon = document.getElementById("pokemon").value.toLowerCase();
+			var Ability = document.getElementById("ability").value;
+			var Item = document.getElementById("item").value;
+			var Gender = document.getElementById("gender").value;
+			var Move1 = document.getElementById("move1").value;
+			var Move2 = document.getElementById("move2").value;
+			var Move3 = document.getElementById("move3").value;
+			var Move4 = document.getElementById("move4").value;
+			var Nature = document.getElementById("nature").value;
+			var Ivs = document.getElementById("ivs").value;
+			var Evs = document.getElementById("evs").value;
+			var Description = document.getElementById("description").value;
+			var params = { title:Title,pokemon:Pokemon,ability:Ability,item:Item,move1:Move1,move2:Move2,move3:Move3,move4:Move4,ivs:Ivs,evs:Evs,description:Description };
+			$ajax({
+				type: "GET";,
+				url : "./create_build",
+				data: params,
+				datatype: "text",
+				success: function() {
+					document.getElementById("out").innerHTML = "Success!";
+				},
+				error: function() {
+					document.getElementById("out").innerHTML = "Error Submitting Build";
+				},
+			});
+		}
+	</script>
+</head>
+<body>
+	<br>
+	<div align="center" id="out"></div>
+	<div align="center">
+		<table>
+			<tr>
+				<td><p>Build Name</p><input id="name"></input></td>
+				<td><p>Pokemon</p><input id="pokemon"></input></td>
+				<td><p>Ability</p><input id="ability"></input></td>
+				<td><p>Item</p><input id="item"></input></td>
+			</tr>
+			</tr>
+				<td><p>Move 1</p><input id="move1"></input></td>
+				<td><p>Move 2</p><input id="move2"></input></td>
+				<td><p>Move 3</p><input id="move3"></input></td>
+				<td><p>Move 4</p><input id="move4"></input></td>
+			</tr>
+			<tr>
+				<td><p>Nature</p><input id="nature"></input></td>
+				<td><p>IVs</p><input id="ivs"></input></td>
+				<td><p>EVs</p><input id="evs"></input></td>
+				<td><p>Gender</p><input id="gender"></input></td>
+			</tr>
+		</table>
+		<p>Description</p><textarea id="description"></textarea><br>
+		<button onclick="submit()">Submit!</button>
+	</div>
+</body>
+</html>
