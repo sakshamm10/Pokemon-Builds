@@ -15,7 +15,7 @@
 		</style>
 	<script>
 		function search() {
-			var val = document.getElementById("search");
+			var val = (document.getElementById("search").value).toLowerCase();
 			var URL = "./view_builds?poke="+val;
 			var tabledata = "<table><tr>";
 			$.ajax({
@@ -23,7 +23,7 @@
 				url: URL,
 				datatype: "text",
 				success: function(msg) {
-					var json = JSON.parse(msg);
+					var json = msg;
 					var count = 0;
 					$(json).each(function() {
 						count++;
