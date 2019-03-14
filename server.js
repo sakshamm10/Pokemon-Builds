@@ -23,14 +23,14 @@ app.use(function(req, res, next) {
 //loads the webpage when url is typed in with the /hw5 endpoint
 
 app.get('/page', function(req,res,next) {
-res.sendFile(__dirname + "/summary.html");
+  res.sendFile(__dirname + "/summary.html");
 });
 
 app.get('/search', function(req,res,next) {
-var poke = reg.query.poke;
+  var poke = reg.query.poke;
 });
 
 app.get('/view_build', function(req,res,next) {
-var build = reg.query.build;
+  var build = reg.query.build;
 });
 
