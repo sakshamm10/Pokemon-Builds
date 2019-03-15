@@ -31,25 +31,20 @@ app.listen(8080, function(req, res)
 {
 		console.log('Server Started');
 		
-		app.use(function(req, res, next) {
+		app.use(function(req, res, next)
+		{
 			res.header("Access-Control-Allow-Origin", "*");
 			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		next();
 		});	
 
-		app.get('/page', function(req,res,next) {
-			res.sendFile(__dirname + "/summary.html");
-		});
-
-		app.get('/build', function(req,res,next){
-			res.sendFile(__dirname + "/viewBuilds.html");
-		})
-
-		app.get('/search', function(req,res,next) {
+		app.get('/search', function(req,res,next)
+		{
 			var poke = reg.query.poke;
 		});
 
-		app.get('/view_builds', function(req,res,next) {
+		app.get('/view_builds', function(req,res,next)
+		{
 			var query = "SELECT * FROM builds WHERE pokemon='" + req.query.poke + "';";
 			console.log(query);
 			
@@ -59,5 +54,33 @@ app.listen(8080, function(req, res)
 				console.log(result);
 				res.send(result);
 			})
+		});
+		
+		app.get('/create_build', function(req,res,next)
+		{
+			var title = req.query.title;
+			var pokemon = req.query.pokemon;
+			var ability = req.query.ability;
+			var item = req.query.item;
+			var gender = req.query.gender;
+			var move1 = req.query.move1;
+			var move2 = req.query.move2;
+			var move3 = req.query.move3;
+			var	move4 = req.query.move4;
+			var nature = req.query.nature;
+			var ivs = req.query.ivs;
+			var evs = req.query.evs;
+			var description = req.query.description;
+			
+			var query = "INSERT INTO builds (title, pokemon, item, ability, gender, move1, move2, move3, move4, nature, ivs, evs, description) values ('" + title + "', '" + pokemon + "', '" + item + "', '" + ability + "', '" + gender + "', '" + move1 + "', '" + move2 + "', '" + move3 + "', '" + move4 + "', '" + nature + "', '" + ivs + "', '" + evs + "', '" + description + "');";
+			
+			console.log(query);
+			
+			con.query(query, function(err, result, field)
+			{
+				if (err) throw err;
+				console.log(result);
+				res.send(result);
+			});
 		});
 });

@@ -8,27 +8,26 @@
 		body{
 		 background-color: crimson;
 		 background-image: url('images/pokemon_cover.png');
-		 background-size: 40%;
+		 background-size: 40% 40%;
 		 background-repeat:no-repeat;
 		 background-position: bottom
 		}
 		</style>
 	<script>
 		function search() {
-			var val = (document.getElementById("search").value).toLowerCase();
+			var val = document.getElementById("search").value;
 			var URL = "./view_builds?poke="+val;
 			var tabledata = "<table><tr>";
 			$.ajax({
 				type: "GET",
 				url: URL,
 				datatype: "text",
-				success: function(msg) {
-					var json = msg;
+				success: function(json) {
+					//var json = JSON.parse(msg);
 					var count = 0;
 					$(json).each(function() {
 						count++;
 						tabledata += "<td><h4>Name: "+this.title+"</h4>";
-						tabledata += "<p>Gender: "+this.gender+"</p>";
 						tabledata += "<p>Ability: "+this.ability+"</p>";
 						tabledata += "<p>Nature: "+this.nature+"</p>";
 						tabledata += "<p>IVs: "+this.ivs+"</p>";
@@ -58,7 +57,7 @@
 <body bgcolor="ff0000">
 	<br><br>
 	<div align="center" bgcolor="#000000">
-		<input id="search"></input>
+		<textarea cols="100" rows="1" id="search"></textarea>
 		<button onclick="search()">Search!</button>
 	</div>
 	<div id="out" align="center"></div>

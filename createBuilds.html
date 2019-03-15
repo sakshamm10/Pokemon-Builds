@@ -12,7 +12,7 @@
 		 background-repeat:no-repeat;
 		 background-position: bottom
 		}
-		</style>
+	</style>
 	<script>
 		function submit() {
 			var Title = document.getElementById("name").value;
@@ -28,12 +28,12 @@
 			var Ivs = document.getElementById("ivs").value;
 			var Evs = document.getElementById("evs").value;
 			var Description = document.getElementById("description").value;
-			var params = { title:Title,pokemon:Pokemon,ability:Ability,item:Item,move1:Move1,move2:Move2,move3:Move3,move4:Move4,ivs:Ivs,evs:Evs,description:Description };
-			$ajax({
-				type: "GET";,
+			var params = { title:Title,pokemon:Pokemon,ability:Ability,item:Item,gender:Gender,move1:Move1,move2:Move2,move3:Move3,move4:Move4,nature:Nature,ivs:Ivs,evs:Evs,description:Description };
+			
+			$.ajax({
+				type: "GET",
 				url : "./create_build",
 				data: params,
-				datatype: "text",
 				success: function() {
 					document.getElementById("out").innerHTML = "Success!";
 				},
