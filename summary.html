@@ -4,7 +4,7 @@
 </title>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<style> <!-- css
+	<style> 
 		table {
 		  border-collapse: collapse;
 		  width: 100%;
@@ -25,9 +25,9 @@
 			body{
 			 background-color: crimson;
 			 background-image: url('images/pokemon_cover.png');
-			 background-size: 40% 40%;
+			 background-size: 40%;
 			 background-repeat:no-repeat;
-			 background-position: bottom
+			 background-position: top;
 			}
 			</style>
 	<script>
@@ -69,19 +69,15 @@
 						var move = this.move.name;
 						move = move.split("-");
 						move.forEach(function(item, index) {
-							moveList += item.charAt(0).toUpperCase()+item.slice(1);
+							moveList += item.charAt(0).toUpperCase()+item.slice(1)+" ";
 						});
-						moveList += ", ";
+						moveList = moveList.substring(0,moveList.length-1)+", ";
 						if(moveList.length >= 100) {
 							moveList += "\n";
 							textdata += moveList;
 							moveList = "";
 						}
-						//textdata += moveList;
 						count++;
-						if(count == 10){
-							return false;
-						}
 					});
 					textdata += moveList;
 					textdata += "</td></tr>";
@@ -103,15 +99,13 @@
 		}
 	</style>
 </head>
-<body align="center" bgcolor="ffffff">
-	<h1> Pokemon Builds </h1>
-	<br>
-	<div bgcolor="#000000">
+<body bgcolor="ffffff">
+	<div align="center" bgcolor="#000000">
 		<input id="search"></input> <br>
 		<button onclick="search()">Search for your favourite pokemon!</button>
 	</div>
 	<div id="out" align="center"></div>
-	<div>
+	<div align="center">
 		<a href="./viewBuilds.html">View Builds</a>
 		<a href="./createBuilds.html">Create Builds</a>
 	</div>
